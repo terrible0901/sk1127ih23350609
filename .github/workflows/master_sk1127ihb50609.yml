@@ -93,3 +93,6 @@ jobs:
           slot-name: 'Production'
           startup-command: 'bash startup.sh'
 
+      - name: Verify live app and Blob connection
+        run: python scripts/verify_azure.py
+
