@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% from '_threads.html' import thread_list, pagination %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy"><p class="eyebrow"><span class="live-dot"></span> AFTER SCHOOL, TOGETHER.</p><h1>その「わからない」を、<br><span>みんなのノートに。</span></h1><p class="hero-description">数学の途中式も、英語のちょっとした疑問も。<br>質問と解説を残して、次の「わかった」につなげよう。</p>
+  <form class="search-box" action="{{ url_for('search') }}" method="get" role="search"><span class="search-icon" aria-hidden="true"></span><label class="sr-only" for="home-query">解説を検索</label><input id="home-query" name="q" type="search" placeholder="気になる問題やキーワードで検索" maxlength="100" required><button type="submit" aria-label="検索する">→</button></form>
+  <p class="hero-note">登録なしで読める。匿名で質問できる。</p></div>
+  <div class="hero-art" aria-hidden="true"><div class="art-star">✳</div><div class="note-paper note-back"><span>ENGLISH</span><p>One question.<br>Many discoveries.</p><div class="paper-line"></div><div class="paper-line short"></div><div class="paper-tag">Let's figure it out.</div></div><div class="note-paper note-front"><span>MATHEMATICS</span><div class="paper-equation">x² + y² = r²</div><svg viewBox="0 0 200 125" class="graph"><path d="M20 95H185M70 115V10" class="axis"/><path d="M30 20 Q100 175 170 20" class="curve"/><circle cx="70" cy="80" r="4"/></svg><div class="paper-line"></div><div class="paper-line short"></div><div class="paper-circle">なるほど！</div></div><span class="art-plus">＋</span></div>
+</section>
+<section class="subject-section" aria-labelledby="subjects-title"><div class="section-heading"><h2 id="subjects-title">教科から探す</h2><span class="section-caption">CHOOSE YOUR SUBJECT</span></div><div class="subject-grid">
+  <a class="subject-card math-card" href="{{ url_for('board', subject='math') }}"><div class="subject-card-top"><span class="card-number">01 / MATHEMATICS</span><span aria-hidden="true">↗</span></div><div class="subject-card-bottom"><div><h3>数学</h3><p>途中式から、理解をつなぐ。</p></div><span class="card-formula" aria-hidden="true">ƒ(x)</span></div></a>
+  <a class="subject-card english-card" href="{{ url_for('board', subject='english') }}"><div class="subject-card-top"><span class="card-number">02 / ENGLISH</span><span aria-hidden="true">↗</span></div><div class="subject-card-bottom"><div><h3>英語</h3><p>その一文を、一緒に読み解く。</p></div><span class="card-formula" aria-hidden="true">Aa</span></div></a>
+</div></section>
+<section class="discussions" aria-labelledby="recent-title"><div class="section-heading"><div class="heading-with-count"><h2 id="recent-title">最近のやりとり</h2><span class="count-pill">{{ total }}</span></div><span class="section-caption">最終返信が新しい順</span></div>{{ thread_list(threads, subjects) }}{{ pagination(page, pages, 'index') }}</section>
+<aside class="community-note"><span aria-hidden="true">↗</span><div><h3>ひとつの解説が、誰かの助けになる。</h3><p>教材名やページ番号をタイトルに入れると、同じ問題で悩む人が見つけやすくなります。</p></div><a href="{{ url_for('new_thread') }}">ノートを残す →</a></aside>
+{% endblock %}
+

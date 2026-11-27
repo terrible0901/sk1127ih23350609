@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% from '_threads.html' import thread_list, pagination %}
+{% block title %}{{ subjects[subject] }}の掲示板{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="{{ url_for('index') }}">ホーム</a><span>/</span>{{ subjects[subject] }}</div>
+<section class="page-heading"><p class="eyebrow">{{ 'MATHEMATICS' if subject == 'math' else 'ENGLISH' }} BOARD</p><h1>{{ subjects[subject] }}のノート<span class="heading-symbol">{{ 'x²' if subject == 'math' else 'Aa' }}</span></h1><p>{{ '途中式や考え方を持ち寄って、一緒に解き進めよう。' if subject == 'math' else '文法も読解も、小さな疑問から一緒に考えよう。' }}</p></section>
+<div class="board-toolbar"><form class="search-box compact" action="{{ url_for('search') }}" method="get" role="search"><input type="hidden" name="subject" value="{{ subject }}"><span class="search-icon" aria-hidden="true"></span><label class="sr-only" for="board-query">{{ subjects[subject] }}の解説を検索</label><input id="board-query" name="q" type="search" placeholder="{{ subjects[subject] }}のノートを検索" maxlength="100" required><button type="submit" aria-label="検索">→</button></form><a class="button" href="{{ url_for('new_thread', subject=subject) }}">＋ 質問する</a></div>
+<div class="section-heading"><h2>すべてのスレッド <span class="count-pill">{{ total }}</span></h2><span class="section-caption">最終返信が新しい順</span></div>{{ thread_list(threads, subjects) }}{{ pagination(page, pages, 'board', subject=subject) }}
+{% endblock %}
+

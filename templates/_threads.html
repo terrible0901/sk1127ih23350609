@@ -1,0 +1,25 @@
+{% macro thread_list(threads, subjects) %}
+<div class="thread-list">
+{% for item in threads %}
+  <a class="thread-row" href="{{ url_for('thread', thread_id=item.id) }}">
+    <span class="subject-symbol {{ item.subject }}" aria-hidden="true">{{ 'x²' if item.subject == 'math' else 'Aa' }}</span>
+    <span class="thread-summary"><span class="eyebrow thread-subject">{{ subjects[item.subject] }}</span><strong>{{ item.title }}</strong><span class="thread-preview">{{ item.posts[0].body[:95] }}</span><span class="thread-date">{{ item.updated_at|jst }} 更新</span></span>
+    <span class="reply-count"><span aria-hidden="true">↳</span> {{ item.posts|length - 1 }}<small>返信</small></span>
+    <span class="row-arrow" aria-hidden="true">↗</span>
+  </a>
+{% else %}
+  <div class="empty-state"><span class="empty-symbol" aria-hidden="true">✎</span><h3>ここから、学びがはじまる。</h3><p>まだスレッドがありません。<br>最初の「わからない」を投稿してみませんか。</p><a class="button button-outline" href="{{ url_for('new_thread') }}">質問を投稿する <span aria-hidden="true">＋</span></a></div>
+{% endfor %}
+</div>
+{% endmacro %}
+
+{% macro pagination(page, pages, endpoint, subject='', query='', thread_id='') %}
+{% if pages > 1 %}
+<nav class="pagination" aria-label="ページ切り替え">
+  {% if page > 1 %}<a class="button button-outline button-small" href="{{ url_for(endpoint, page=page-1, subject=subject, q=query, thread_id=thread_id) }}">← 前へ</a>{% endif %}
+  <span>{{ page }} / {{ pages }}</span>
+  {% if page < pages %}<a class="button button-outline button-small" href="{{ url_for(endpoint, page=page+1, subject=subject, q=query, thread_id=thread_id) }}">次へ →</a>{% endif %}
+</nav>
+{% endif %}
+{% endmacro %}
+

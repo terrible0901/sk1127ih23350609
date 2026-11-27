@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% from '_threads.html' import thread_list, pagination %}
+{% block title %}検索{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="{{ url_for('index') }}">ホーム</a><span>/</span>検索</div>
+<section class="page-heading"><p class="eyebrow">FIND YOUR ANSWER</p><h1>解説を探す。</h1><p>タイトルと、スレッド内のすべての投稿から検索します。</p></section>
+<form class="search-form" action="{{ url_for('search') }}" method="get" role="search"><div class="search-box"><span class="search-icon" aria-hidden="true"></span><label class="sr-only" for="search-query">キーワード</label><input id="search-query" name="q" type="search" placeholder="キーワードを入力" value="{{ query }}" maxlength="100"><button type="submit" aria-label="検索">→</button></div><label class="sr-only" for="subject-filter">教科</label><select id="subject-filter" name="subject"><option value="">すべての教科</option value="math" {% if subject == 'math' %}selected{% endif %}>数学</option><option value="english" {% if subject == 'english' %}selected{% endif %}>英語</option></select><button class="button button-outline" type="submit">絞り込む</button></form>
+<div class="section-heading"><h2>{% if query %}「{{ query }}」の検索結果{% else %}すべてのノート{% endif %}</h2><span class="count-pill">{{ total }}件</span></div>
+{% if not total %}<div class="empty-state"><span class="empty-symbol" aria-hidden="true">⌕</span><h3>一致するノートがありません。</h3><p>キーワードを短くするか、教科を変えてみてください。</p><a class="button button-outline" href="{{ url_for('new_thread') }}">新しく質問する ＋</a></div>{% else %}{{ thread_list(threads, subjects) }}{% endif %}
+{{ pagination(page, pages, 'search', subject=subject, query=query) }}
+{% endblock %}
+

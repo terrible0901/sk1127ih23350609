@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block title %}{{ code }}{% endblock %}
+{% block content %}<section class="error-page"><p class="eyebrow">{{ code }} / HOUKAGO NOTE</p><h1>{{ '少し、ひと休み。' if code == 503 else 'もう一度、確認しよう。' }}</h1><p>{{ message }}</p><div class="error-actions"><button class="button button-outline" type="button" data-go-back>← 前のページへ</button><a class="button" href="{{ url_for('index') }}">ホームへ戻る</a></div><p class="field-help">投稿画面に戻ると、このタブで保存した入力内容を復元できます。</p></section>{% endblock %}
+
