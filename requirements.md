@@ -64,7 +64,7 @@
 - JSONを丸ごと読み書きする小規模向け実装。データ上限12 MiB。上限到達時は既存データを保持して更新を拒否する。
 - 完成条件：スマートフォンで登録・ログイン・投稿・返信・検索・数式表示ができる。再公開後もデータが残り、同時投稿で返信が失われない。
 
-サイトのURL：Azureのデプロイ結果に表示される公開URL（公開後に確認）
+サイトのURL：https://sk1127ihb50609-azayg4h8ahchcqhc.japaneast-01.azurewebsites.net/
 GitHubリポジトリのURL：https://github.com/terrible0901/sk1127ih23350609
 
 起動・Azure設定・確認手順は[README](./README.md)を参照。
